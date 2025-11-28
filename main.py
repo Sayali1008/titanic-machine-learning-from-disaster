@@ -4,8 +4,8 @@ import pandas as pd
 from sklearn.metrics import accuracy_score
 from sklearn.linear_model import LogisticRegression
 
-from preprocessing.preprocessing import generate_data
-from preprocessing.postprocessing import generate_submision_file
+from pre_process import generate_data
+from generate_submission_file import generate_submission_file
 from logistic_regression import LogisticRegression as CustomLogisticRegression
 
 def main():
@@ -38,7 +38,7 @@ def main():
 
 
     # Create submission file
-    generate_submision_file(X_test, y_test_pred)
+    generate_submission_file(X_test, y_test_pred)
 
 
 

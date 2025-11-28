@@ -3,18 +3,15 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 def preprocess_data(df):
-    # Handling missing values
-    df.loc[:, df.isnull().any(axis=0)]
+    # Fill null Age values with the median
+    df["Age"] = df["Age"].fillna(df["Age"].median())
     
-    # Drop NaN rows for Embarked
-    df.dropna(subset=['Embarked'])
-
     # Drop unnecessary columns
-    df.drop(columns = ['Age', 'Cabin', 'PassengerId', 'Name', 'Ticket', 'Fare'], axis = 1, inplace = True)
+    keep_columns = ["Pclass", "Sex", "Age", "SibSp", "Parch", "Embarked", "Survived"]
+    df = df[keep_columns]
 
     # One hot encode categorical data
-    df = pd.get_dummies(df, columns = ['Sex'])
-    df = pd.get_dummies(df, columns = ['Embarked'])
+    df = pd.get_dummies(df, columns=["Pclass", "Sex", "Embarked"], dtype=int)
 
     # Shuffle the data
     df = df.sample(frac = 1)
